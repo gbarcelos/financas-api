@@ -1,0 +1,12 @@
+package br.com.oak.financas.api.model;
+
+public enum ErrorCode {
+  INTERNAL_SERVER_ERROR,
+  REQUIRED_FIELD,
+  INVALID_DATA,
+  INVALID_PARAMETER,
+  INVALID_FORMAT,
+  RESOURCE_NOT_FOUND,
+  RECEITA_JA_EXISTE,
+  DESPESA_JA_EXISTE
+}
