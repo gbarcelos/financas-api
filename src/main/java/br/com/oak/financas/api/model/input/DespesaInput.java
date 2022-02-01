@@ -19,4 +19,7 @@ public class DespesaInput extends LancamentoInput {
   @ApiModelProperty(example = "Combustível", required = true, position = 1)
   @NotBlank
   private String descricao;
+
+  @ApiModelProperty(example = "1", position = 4)
+  private Long categoriaId;
 }

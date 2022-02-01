@@ -27,4 +27,8 @@ public class Lancamento {
 
   @Enumerated(EnumType.STRING)
   private TipoLancamento tipo;
+
+  @ManyToOne
+  @JoinColumn(name = "categoria_id")
+  private Categoria categoria;
 }
