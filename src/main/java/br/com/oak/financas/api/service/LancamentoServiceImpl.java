@@ -7,6 +7,7 @@ import br.com.oak.financas.api.model.ErrorCode;
 import br.com.oak.financas.api.model.TipoLancamento;
 import br.com.oak.financas.api.repository.LancamentoRepository;
 import lombok.RequiredArgsConstructor;
+import org.apache.commons.lang3.StringUtils;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,7 +25,12 @@ public class LancamentoServiceImpl implements LancamentoService {
   private final ModelMapper modelMapper;
 
   @Override
-  public List<Lancamento> listarReceitas() {
+  public List<Lancamento> listarReceitas(String descricao) {
+
+    if (StringUtils.isNotBlank(descricao)) {
+      return lancamentoRepository.findByTipoAndDescricaoLike(
+          TipoLancamento.RECEITA, "%" + descricao + "%");
+    }
     return lancamentoRepository.findAllByTipo(TipoLancamento.RECEITA);
   }
 

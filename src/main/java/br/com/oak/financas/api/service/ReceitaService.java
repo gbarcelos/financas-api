@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface ReceitaService {
 
-  List<ReceitaDto> listar();
+  List<ReceitaDto> listar(String descricao);
 
   ReceitaDto inserir(ReceitaInput receitaInput);
 

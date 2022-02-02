@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface LancamentoService {
 
-  List<Lancamento> listarReceitas();
+  List<Lancamento> listarReceitas(String descricao);
 
   List<Lancamento> listarDespesas();
 

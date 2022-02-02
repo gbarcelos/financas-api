@@ -18,8 +18,8 @@ public class ReceitaServiceImpl implements ReceitaService {
   private final ReceitaMapper receitaMapper;
 
   @Override
-  public List<ReceitaDto> listar() {
-    return receitaMapper.unmap(lancamentoService.listarReceitas());
+  public List<ReceitaDto> listar(String descricao) {
+    return receitaMapper.unmap(lancamentoService.listarReceitas(descricao));
   }
 
   @Override

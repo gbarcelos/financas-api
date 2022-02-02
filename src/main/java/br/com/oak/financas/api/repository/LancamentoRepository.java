@@ -15,6 +15,8 @@ public interface LancamentoRepository extends CrudRepository<Lancamento, Long> {
 
   List<Lancamento> findAllByTipo(TipoLancamento tipo);
 
+  List<Lancamento> findByTipoAndDescricaoLike(TipoLancamento receita, String descricao);
+
   @Query(
       "select l from Lancamento l where l.tipo = :tipo and l.descricao = :descricao and month(l.data) = :mes")
   Optional<Lancamento> findByTipoAndDescricaoAndMes(

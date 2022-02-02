@@ -25,11 +25,12 @@ public class ReceitasController implements ReceitasControllerOpenApi {
   @Override
   @GetMapping
   @ResponseStatus(HttpStatus.OK)
-  public ContractResponse<List<ReceitaDto>> listarReceitas(HttpServletRequest request) {
+  public ContractResponse<List<ReceitaDto>> listarReceitas(
+      @RequestParam(required = false) String descricao, HttpServletRequest request) {
 
     return ContractResponse.<List<ReceitaDto>>builder()
         .path(request.getServletPath())
-        .response(receitaService.listar())
+        .response(receitaService.listar(descricao))
         .build();
   }
 
