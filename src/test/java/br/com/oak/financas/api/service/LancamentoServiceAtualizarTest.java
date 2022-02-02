@@ -49,7 +49,7 @@ public class LancamentoServiceAtualizarTest {
         .thenReturn(Optional.of(Lancamento.builder().id(1L).build()));
 
     when(lancamentoRepository.findByTipoAndDescricaoAndAnoAndMesAndDifferentId(
-            TipoLancamento.DESPESA, "descricao, alterado", 1, 1, 1L))
+            TipoLancamento.DESPESA, "descricao, alterado", 2022, 1, 1L))
         .thenReturn(Optional.empty());
 
     // Act
@@ -77,7 +77,7 @@ public class LancamentoServiceAtualizarTest {
         .thenReturn(Optional.of(Lancamento.builder().id(1L).build()));
 
     when(lancamentoRepository.findByTipoAndDescricaoAndAnoAndMesAndDifferentId(
-            TipoLancamento.DESPESA, "descricao, alterado", 1, 1, 1L))
+            TipoLancamento.DESPESA, "descricao, alterado", 2022, 1, 1L))
         .thenReturn(Optional.of(Lancamento.builder().build()));
 
     Lancamento lancamentoAlterado =
