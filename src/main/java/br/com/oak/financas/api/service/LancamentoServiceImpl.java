@@ -35,7 +35,12 @@ public class LancamentoServiceImpl implements LancamentoService {
   }
 
   @Override
-  public List<Lancamento> listarDespesas() {
+  public List<Lancamento> listarDespesas(String descricao) {
+
+    if (StringUtils.isNotBlank(descricao)) {
+      return lancamentoRepository.findByTipoAndDescricaoLike(
+          TipoLancamento.DESPESA, "%" + descricao + "%");
+    }
     return lancamentoRepository.findAllByTipo(TipoLancamento.DESPESA);
   }
 

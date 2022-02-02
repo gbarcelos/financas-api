@@ -18,8 +18,8 @@ public class DespesaServiceImpl implements DespesaService {
   private final DespesaMapper despesaMapper;
 
   @Override
-  public List<DespesaDto> listar() {
-    return despesaMapper.unmap(lancamentoService.listarDespesas());
+  public List<DespesaDto> listar(String descricao) {
+    return despesaMapper.unmap(lancamentoService.listarDespesas(descricao));
   }
 
   @Override

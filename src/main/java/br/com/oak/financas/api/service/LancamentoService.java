@@ -8,7 +8,7 @@ public interface LancamentoService {
 
   List<Lancamento> listarReceitas(String descricao);
 
-  List<Lancamento> listarDespesas();
+  List<Lancamento> listarDespesas(String descricao);
 
   void inserir(Lancamento lancamento);
 
