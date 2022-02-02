@@ -36,7 +36,8 @@ public class LancamentoServiceInserirTest {
   @Test
   public void testInserir_cenarioDeSucesso() {
     // Arrange
-    when(lancamentoRepository.findByTipoAndDescricaoAndMes(TipoLancamento.DESPESA, "descricao", 1))
+    when(lancamentoRepository.findByTipoAndDescricaoAndAnoAndMes(
+            TipoLancamento.DESPESA, "descricao", 1, 1))
         .thenReturn(Optional.empty());
 
     // Act
@@ -55,7 +56,8 @@ public class LancamentoServiceInserirTest {
   @Test
   public void testInserir_quandoLancamentoJaExiste_entaoLancaBusinessException() {
     // Arrange
-    when(lancamentoRepository.findByTipoAndDescricaoAndMes(TipoLancamento.DESPESA, "descricao", 1))
+    when(lancamentoRepository.findByTipoAndDescricaoAndAnoAndMes(
+            TipoLancamento.DESPESA, "descricao", 1, 1))
         .thenReturn(Optional.of(Lancamento.builder().build()));
 
     Lancamento lancamento =

@@ -23,6 +23,11 @@ public class DespesaServiceImpl implements DespesaService {
   }
 
   @Override
+  public List<DespesaDto> listarDespesasPorMes(Integer ano, Integer mes) {
+    return despesaMapper.unmap(lancamentoService.listarDespesasPorMes(ano, mes));
+  }
+
+  @Override
   public DespesaDto inserir(DespesaInput despesaInput) {
 
     Lancamento lancamento = despesaMapper.map(despesaInput);

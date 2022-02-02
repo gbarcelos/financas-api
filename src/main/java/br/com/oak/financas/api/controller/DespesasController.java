@@ -35,6 +35,18 @@ public class DespesasController implements DespesasControllerOpenApi {
   }
 
   @Override
+  @GetMapping("/{ano}/{mes}")
+  @ResponseStatus(HttpStatus.OK)
+  public ContractResponse<List<DespesaDto>> listarDespesasPorMes(
+      @PathVariable Integer ano, @PathVariable Integer mes, HttpServletRequest request) {
+
+    return ContractResponse.<List<DespesaDto>>builder()
+        .path(request.getServletPath())
+        .response(despesaService.listarDespesasPorMes(ano, mes))
+        .build();
+  }
+
+  @Override
   @PostMapping
   @ResponseStatus(HttpStatus.CREATED)
   public ContractResponse<DespesaDto> criarDespesa(

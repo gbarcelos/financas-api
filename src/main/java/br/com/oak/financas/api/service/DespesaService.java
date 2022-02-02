@@ -9,6 +9,8 @@ public interface DespesaService {
 
   List<DespesaDto> listar(String descricao);
 
+  List<DespesaDto> listarDespesasPorMes(Integer ano, Integer mes);
+
   DespesaDto inserir(DespesaInput despesaInput);
 
   void atualizar(Long id, DespesaInput despesaInput);

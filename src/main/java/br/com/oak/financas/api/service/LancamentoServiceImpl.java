@@ -50,6 +50,11 @@ public class LancamentoServiceImpl implements LancamentoService {
   }
 
   @Override
+  public List<Lancamento> listarDespesasPorMes(Integer ano, Integer mes) {
+    return lancamentoRepository.findByTipoAndAnoAndMes(TipoLancamento.DESPESA, ano, mes);
+  }
+
+  @Override
   public void inserir(Lancamento lancamento) {
 
     validarInclusao(lancamento);
@@ -88,8 +93,11 @@ public class LancamentoServiceImpl implements LancamentoService {
   private void validarInclusao(Lancamento lancamento) {
 
     Optional<Lancamento> lancamentoOptional =
-        lancamentoRepository.findByTipoAndDescricaoAndMes(
-            lancamento.getTipo(), lancamento.getDescricao(), lancamento.getData().getMonthValue());
+        lancamentoRepository.findByTipoAndDescricaoAndAnoAndMes(
+            lancamento.getTipo(),
+            lancamento.getDescricao(),
+            lancamento.getData().getYear(),
+            lancamento.getData().getMonthValue());
 
     validarJaExiste(lancamentoOptional);
   }
@@ -97,9 +105,10 @@ public class LancamentoServiceImpl implements LancamentoService {
   private void validarAlteracao(Lancamento lancamento) {
 
     Optional<Lancamento> lancamentoOptional =
-        lancamentoRepository.findByTipoAndDescricaoAndMesAndDifferentId(
+        lancamentoRepository.findByTipoAndDescricaoAndAnoAndMesAndDifferentId(
             lancamento.getTipo(),
             lancamento.getDescricao(),
+            lancamento.getData().getYear(),
             lancamento.getData().getMonthValue(),
             lancamento.getId());
 
