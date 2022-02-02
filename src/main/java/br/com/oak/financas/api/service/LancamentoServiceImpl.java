@@ -45,6 +45,11 @@ public class LancamentoServiceImpl implements LancamentoService {
   }
 
   @Override
+  public List<Lancamento> listarReceitasPorMes(Integer ano, Integer mes) {
+    return lancamentoRepository.findByTipoAndAnoAndMes(TipoLancamento.RECEITA, ano, mes);
+  }
+
+  @Override
   public void inserir(Lancamento lancamento) {
 
     validarInclusao(lancamento);

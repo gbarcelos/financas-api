@@ -31,4 +31,9 @@ public interface LancamentoRepository extends CrudRepository<Lancamento, Long> {
       @Param("descricao") String descricao,
       @Param("mes") Integer mes,
       @Param("id") Long id);
+
+  @Query(
+      "select l from Lancamento l where l.tipo = :tipo and year(l.data) = :ano and month(l.data) = :mes")
+  List<Lancamento> findByTipoAndAnoAndMes(
+      @Param("tipo") TipoLancamento tipo, @Param("ano") Integer ano, @Param("mes") Integer mes);
 }

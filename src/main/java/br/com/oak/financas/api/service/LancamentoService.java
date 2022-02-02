@@ -10,6 +10,8 @@ public interface LancamentoService {
 
   List<Lancamento> listarDespesas(String descricao);
 
+  List<Lancamento> listarReceitasPorMes(Integer ano, Integer mes);
+
   void inserir(Lancamento lancamento);
 
   void atualizar(Long id, Lancamento lancamento);

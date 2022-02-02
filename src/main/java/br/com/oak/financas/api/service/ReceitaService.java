@@ -9,6 +9,8 @@ public interface ReceitaService {
 
   List<ReceitaDto> listar(String descricao);
 
+  List<ReceitaDto> listarReceitasPorMes(Integer ano, Integer mes);
+
   ReceitaDto inserir(ReceitaInput receitaInput);
 
   void atualizar(Long id, ReceitaInput receitaInput);

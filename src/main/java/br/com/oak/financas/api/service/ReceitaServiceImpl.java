@@ -23,6 +23,11 @@ public class ReceitaServiceImpl implements ReceitaService {
   }
 
   @Override
+  public List<ReceitaDto> listarReceitasPorMes(Integer ano, Integer mes) {
+    return receitaMapper.unmap(lancamentoService.listarReceitasPorMes(ano, mes));
+  }
+
+  @Override
   public ReceitaDto inserir(ReceitaInput receitaInput) {
 
     Lancamento lancamento = receitaMapper.map(receitaInput);

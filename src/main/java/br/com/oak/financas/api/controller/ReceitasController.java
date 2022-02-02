@@ -35,6 +35,18 @@ public class ReceitasController implements ReceitasControllerOpenApi {
   }
 
   @Override
+  @GetMapping("/{ano}/{mes}")
+  @ResponseStatus(HttpStatus.OK)
+  public ContractResponse<List<ReceitaDto>> listarReceitasPorMes(
+      @PathVariable Integer ano, @PathVariable Integer mes, HttpServletRequest request) {
+
+    return ContractResponse.<List<ReceitaDto>>builder()
+        .path(request.getServletPath())
+        .response(receitaService.listarReceitasPorMes(ano, mes))
+        .build();
+  }
+
+  @Override
   @PostMapping
   @ResponseStatus(HttpStatus.CREATED)
   public ContractResponse<ReceitaDto> criarReceita(
