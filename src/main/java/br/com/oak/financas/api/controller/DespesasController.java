@@ -25,11 +25,24 @@ public class DespesasController implements DespesasControllerOpenApi {
   @Override
   @GetMapping
   @ResponseStatus(HttpStatus.OK)
-  public ContractResponse<List<DespesaDto>> listarDespesas(HttpServletRequest request) {
+  public ContractResponse<List<DespesaDto>> listarDespesas(
+      @RequestParam(required = false) String descricao, HttpServletRequest request) {
 
     return ContractResponse.<List<DespesaDto>>builder()
         .path(request.getServletPath())
-        .response(despesaService.listar())
+        .response(despesaService.listar(descricao))
+        .build();
+  }
+
+  @Override
+  @GetMapping("/{ano}/{mes}")
+  @ResponseStatus(HttpStatus.OK)
+  public ContractResponse<List<DespesaDto>> listarDespesasPorMes(
+      @PathVariable Integer ano, @PathVariable Integer mes, HttpServletRequest request) {
+
+    return ContractResponse.<List<DespesaDto>>builder()
+        .path(request.getServletPath())
+        .response(despesaService.listarDespesasPorMes(ano, mes))
         .build();
   }
 

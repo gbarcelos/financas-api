@@ -7,7 +7,9 @@ import java.util.List;
 
 public interface DespesaService {
 
-  List<DespesaDto> listar();
+  List<DespesaDto> listar(String descricao);
+
+  List<DespesaDto> listarDespesasPorMes(Integer ano, Integer mes);
 
   DespesaDto inserir(DespesaInput despesaInput);
 

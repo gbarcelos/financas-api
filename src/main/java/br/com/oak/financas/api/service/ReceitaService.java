@@ -7,7 +7,9 @@ import java.util.List;
 
 public interface ReceitaService {
 
-  List<ReceitaDto> listar();
+  List<ReceitaDto> listar(String descricao);
+
+  List<ReceitaDto> listarReceitasPorMes(Integer ano, Integer mes);
 
   ReceitaDto inserir(ReceitaInput receitaInput);
 

@@ -13,7 +13,15 @@ public interface ReceitasControllerOpenApi {
 
   @ApiOperation("Lista as receitas cadastradas no sistema")
   @ApiResponses({@ApiResponse(code = 200, message = "Receitas listadas com sucesso")})
-  ContractResponse<List<ReceitaDto>> listarReceitas(HttpServletRequest request);
+  ContractResponse<List<ReceitaDto>> listarReceitas(
+      @ApiParam(name = "descricao", type = "String", value = "Descrição de uma receita")
+          String descricao,
+      HttpServletRequest request);
+
+  @ApiOperation("Lista as receitas cadastradas no sistema por ano e mês")
+  @ApiResponses({@ApiResponse(code = 200, message = "Receitas listadas com sucesso")})
+  ContractResponse<List<ReceitaDto>> listarReceitasPorMes(
+      Integer ano, Integer mes, HttpServletRequest request);
 
   @ApiOperation("Cria uma receita no sistema")
   @ApiResponses({@ApiResponse(code = 201, message = "Receita criada com sucesso")})

@@ -13,7 +13,15 @@ public interface DespesasControllerOpenApi {
 
   @ApiOperation("Lista as despesas cadastradas no sistema")
   @ApiResponses({@ApiResponse(code = 200, message = "Despesas listadas com sucesso")})
-  ContractResponse<List<DespesaDto>> listarDespesas(HttpServletRequest request);
+  ContractResponse<List<DespesaDto>> listarDespesas(
+      @ApiParam(name = "descricao", type = "String", value = "Descrição de uma despesa")
+          String descricao,
+      HttpServletRequest request);
+
+  @ApiOperation("Lista as despesas cadastradas no sistema por ano e mês")
+  @ApiResponses({@ApiResponse(code = 200, message = "Despesas listadas com sucesso")})
+  ContractResponse<List<DespesaDto>> listarDespesasPorMes(
+      Integer ano, Integer mes, HttpServletRequest request);
 
   @ApiOperation("Cria uma despesa no sistema")
   @ApiResponses({@ApiResponse(code = 201, message = "Despesa criada com sucesso")})
