@@ -51,7 +51,9 @@ public class SpringFoxConfig implements WebMvcConfigurer {
         .additionalModels(typeResolver.resolve(ErrorResponse.class))
         .apiInfo(apiInfo())
         .tags(
-            new Tag("Receita", "Gerencia as receitas"), new Tag("Despesa", "Gerencia as despesas"));
+            new Tag("Consultas", "Agrupa as consultas da API"),
+            new Tag("Receita", "Gerencia as receitas"),
+            new Tag("Despesa", "Gerencia as despesas"));
   }
 
   @Override
