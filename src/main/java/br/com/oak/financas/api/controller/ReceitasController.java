@@ -4,8 +4,10 @@ import br.com.oak.financas.api.controller.openapi.ReceitasControllerOpenApi;
 import br.com.oak.financas.api.model.contract.response.ContractResponse;
 import br.com.oak.financas.api.model.dto.ReceitaDto;
 import br.com.oak.financas.api.model.input.ReceitaInput;
+import br.com.oak.financas.api.security.ApiSecurity;
 import br.com.oak.financas.api.service.ReceitaService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -15,12 +17,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.util.List;
 
+@Slf4j
 @RestController
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
 @RequestMapping(path = "/v1/receitas", produces = MediaType.APPLICATION_JSON_VALUE)
 public class ReceitasController implements ReceitasControllerOpenApi {
 
   private final ReceitaService receitaService;
+  private final ApiSecurity apiSecurity;
 
   @Override
   @GetMapping
@@ -51,7 +55,7 @@ public class ReceitasController implements ReceitasControllerOpenApi {
   @ResponseStatus(HttpStatus.CREATED)
   public ContractResponse<ReceitaDto> criarReceita(
       @RequestBody @Valid ReceitaInput receitaInput, HttpServletRequest request) {
-
+    log.info("User id: {}", apiSecurity.getUsuarioGuid());
     return ContractResponse.<ReceitaDto>builder()
         .path(request.getServletPath())
         .response(receitaService.inserir(receitaInput))
