@@ -28,11 +28,11 @@ public class ReceitaServiceImpl implements ReceitaService {
   }
 
   @Override
-  public ReceitaDto inserir(ReceitaInput receitaInput) {
+  public ReceitaDto inserir(String guid, ReceitaInput receitaInput) {
 
     Lancamento lancamento = receitaMapper.map(receitaInput);
 
-    lancamentoService.inserir(lancamento);
+    lancamentoService.inserir(guid, lancamento);
 
     return receitaMapper.unmap(lancamento);
   }

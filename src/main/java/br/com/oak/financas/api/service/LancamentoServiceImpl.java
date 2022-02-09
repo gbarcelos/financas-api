@@ -1,6 +1,7 @@
 package br.com.oak.financas.api.service;
 
 import br.com.oak.financas.api.entity.Lancamento;
+import br.com.oak.financas.api.entity.Usuario;
 import br.com.oak.financas.api.exception.BusinessException;
 import br.com.oak.financas.api.exception.NotFoundException;
 import br.com.oak.financas.api.model.ErrorCode;
@@ -8,6 +9,7 @@ import br.com.oak.financas.api.model.TipoLancamento;
 import br.com.oak.financas.api.model.dto.DespesasPorCategoriaDto;
 import br.com.oak.financas.api.model.dto.ResumoDto;
 import br.com.oak.financas.api.repository.LancamentoRepository;
+import br.com.oak.financas.api.repository.UsuarioRepository;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
 import org.modelmapper.ModelMapper;
@@ -26,6 +28,7 @@ public class LancamentoServiceImpl implements LancamentoService {
   public static final String MSG_LANCAMENTO_JA_EXISTE = "A %s já existe";
 
   private final LancamentoRepository lancamentoRepository;
+  private final UsuarioRepository usuarioRepository;
   private final ModelMapper modelMapper;
 
   @Override
@@ -72,7 +75,9 @@ public class LancamentoServiceImpl implements LancamentoService {
   }
 
   @Override
-  public void inserir(Lancamento lancamento) {
+  public void inserir(String guid, Lancamento lancamento) {
+
+    lancamento.setUsuario(buscarUsuarioPeloGuid(guid));
 
     validarInclusao(lancamento);
 
@@ -107,6 +112,16 @@ public class LancamentoServiceImpl implements LancamentoService {
                     String.format("O registro com o id '%s' não existe", id)));
   }
 
+  public Usuario buscarUsuarioPeloGuid(String guid) {
+    return usuarioRepository
+        .findByGuid(guid)
+        .orElseThrow(
+            () ->
+                new NotFoundException(
+                    ErrorCode.RESOURCE_NOT_FOUND,
+                    String.format("O registro com o guid '%s' não existe", guid)));
+  }
+
   private List<Lancamento> listar(TipoLancamento tipo, String descricao) {
 
     if (StringUtils.isNotBlank(descricao)) {
@@ -118,7 +133,8 @@ public class LancamentoServiceImpl implements LancamentoService {
   private void validarInclusao(Lancamento lancamento) {
 
     Optional<Lancamento> lancamentoOptional =
-        lancamentoRepository.findByTipoAndDescricaoAndAnoAndMes(
+        lancamentoRepository.buscarLancamentoNoMesmoDia(
+            lancamento.getUsuario().getId(),
             lancamento.getTipo(),
             lancamento.getDescricao(),
             lancamento.getData().getYear(),

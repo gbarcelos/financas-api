@@ -39,7 +39,7 @@ public class LancamentoServiceAtualizarTest {
         .createTypeMap(Lancamento.class, Lancamento.class)
         .addMappings(mapper -> mapper.skip(Lancamento::setId));
 
-    lancamentoService = new LancamentoServiceImpl(lancamentoRepository, modelMapper);
+    lancamentoService = new LancamentoServiceImpl(lancamentoRepository, null, modelMapper);
   }
 
   @Test

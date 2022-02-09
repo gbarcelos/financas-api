@@ -28,11 +28,11 @@ public class DespesaServiceImpl implements DespesaService {
   }
 
   @Override
-  public DespesaDto inserir(DespesaInput despesaInput) {
+  public DespesaDto inserir(String guid, DespesaInput despesaInput) {
 
     Lancamento lancamento = despesaMapper.map(despesaInput);
 
-    lancamentoService.inserir(lancamento);
+    lancamentoService.inserir(guid, lancamento);
 
     return despesaMapper.unmap(lancamento);
   }

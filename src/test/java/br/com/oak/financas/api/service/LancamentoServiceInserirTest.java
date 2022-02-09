@@ -30,18 +30,19 @@ public class LancamentoServiceInserirTest {
 
   @BeforeEach
   public void beforeEach() {
-    lancamentoService = new LancamentoServiceImpl(lancamentoRepository, modelMapper);
+    lancamentoService = new LancamentoServiceImpl(lancamentoRepository, null, modelMapper);
   }
 
   @Test
   public void testInserir_cenarioDeSucesso() {
     // Arrange
-    when(lancamentoRepository.findByTipoAndDescricaoAndAnoAndMes(
-            TipoLancamento.DESPESA, "descricao", 2022, 1))
+    when(lancamentoRepository.buscarLancamentoNoMesmoDia(
+            1L, TipoLancamento.DESPESA, "descricao", 2022, 1))
         .thenReturn(Optional.empty());
 
     // Act
     lancamentoService.inserir(
+        null,
         Lancamento.builder()
             .tipo(TipoLancamento.DESPESA)
             .descricao("descricao")
@@ -56,8 +57,8 @@ public class LancamentoServiceInserirTest {
   @Test
   public void testInserir_quandoLancamentoJaExiste_entaoLancaBusinessException() {
     // Arrange
-    when(lancamentoRepository.findByTipoAndDescricaoAndAnoAndMes(
-            TipoLancamento.DESPESA, "descricao", 2022, 1))
+    when(lancamentoRepository.buscarLancamentoNoMesmoDia(
+            1L, TipoLancamento.DESPESA, "descricao", 2022, 1))
         .thenReturn(Optional.of(Lancamento.builder().build()));
 
     Lancamento lancamento =
@@ -70,7 +71,7 @@ public class LancamentoServiceInserirTest {
 
     // Act
     BusinessException businessException =
-        assertThrows(BusinessException.class, () -> lancamentoService.inserir(lancamento));
+        assertThrows(BusinessException.class, () -> lancamentoService.inserir(null, lancamento));
 
     // Assert
     assertEquals(ErrorCode.DESPESA_JA_EXISTE, businessException.getErrorCode());

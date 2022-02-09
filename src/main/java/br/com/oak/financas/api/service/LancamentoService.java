@@ -17,7 +17,7 @@ public interface LancamentoService {
 
   ResumoDto detalharResumoDoMes(Integer ano, Integer mes);
 
-  void inserir(Lancamento lancamento);
+  void inserir(String guid, Lancamento lancamento);
 
   void atualizar(Long id, Lancamento lancamento);
 

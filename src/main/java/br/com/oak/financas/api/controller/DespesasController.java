@@ -4,6 +4,7 @@ import br.com.oak.financas.api.controller.openapi.DespesasControllerOpenApi;
 import br.com.oak.financas.api.model.contract.response.ContractResponse;
 import br.com.oak.financas.api.model.dto.DespesaDto;
 import br.com.oak.financas.api.model.input.DespesaInput;
+import br.com.oak.financas.api.security.ApiSecurity;
 import br.com.oak.financas.api.service.DespesaService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +22,7 @@ import java.util.List;
 public class DespesasController implements DespesasControllerOpenApi {
 
   private final DespesaService despesaService;
+  private final ApiSecurity apiSecurity;
 
   @Override
   @GetMapping
@@ -54,7 +56,7 @@ public class DespesasController implements DespesasControllerOpenApi {
 
     return ContractResponse.<DespesaDto>builder()
         .path(request.getServletPath())
-        .response(despesaService.inserir(despesaInput))
+        .response(despesaService.inserir(apiSecurity.getUsuarioGuid(), despesaInput))
         .build();
   }
 
