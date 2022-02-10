@@ -36,7 +36,7 @@ public class LancamentoServiceInserirTest {
   @Test
   public void testInserir_cenarioDeSucesso() {
     // Arrange
-    when(lancamentoRepository.buscarLancamentoNoMesmoDia(
+    when(lancamentoRepository.buscarLancamentoDoUsuarioNoMesmoDia(
             1L, TipoLancamento.DESPESA, "descricao", 2022, 1))
         .thenReturn(Optional.empty());
 
@@ -57,7 +57,7 @@ public class LancamentoServiceInserirTest {
   @Test
   public void testInserir_quandoLancamentoJaExiste_entaoLancaBusinessException() {
     // Arrange
-    when(lancamentoRepository.buscarLancamentoNoMesmoDia(
+    when(lancamentoRepository.buscarLancamentoDoUsuarioNoMesmoDia(
             1L, TipoLancamento.DESPESA, "descricao", 2022, 1))
         .thenReturn(Optional.of(Lancamento.builder().build()));
 

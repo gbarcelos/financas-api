@@ -32,19 +32,20 @@ public class DespesasController implements DespesasControllerOpenApi {
 
     return ContractResponse.<List<DespesaDto>>builder()
         .path(request.getServletPath())
-        .response(despesaService.listar(descricao))
+        .response(despesaService.listarDespesasDoUsuario(apiSecurity.getUsuarioGuid(), descricao))
         .build();
   }
 
   @Override
   @GetMapping("/{ano}/{mes}")
   @ResponseStatus(HttpStatus.OK)
-  public ContractResponse<List<DespesaDto>> listarDespesasPorMes(
+  public ContractResponse<List<DespesaDto>> buscarDespesasNoAnoMes(
       @PathVariable Integer ano, @PathVariable Integer mes, HttpServletRequest request) {
 
     return ContractResponse.<List<DespesaDto>>builder()
         .path(request.getServletPath())
-        .response(despesaService.listarDespesasPorMes(ano, mes))
+        .response(
+            despesaService.buscarDespesasDoUsuarioNoAnoMes(apiSecurity.getUsuarioGuid(), ano, mes))
         .build();
   }
 
@@ -67,25 +68,25 @@ public class DespesasController implements DespesasControllerOpenApi {
       @PathVariable(value = "id") Long id,
       @RequestBody @Valid DespesaInput despesaInput,
       HttpServletRequest request) {
-    despesaService.atualizar(id, despesaInput);
+    despesaService.atualizar(apiSecurity.getUsuarioGuid(), id, despesaInput);
   }
 
   @Override
   @GetMapping(value = "/{id}")
   @ResponseStatus(HttpStatus.OK)
-  public ContractResponse<DespesaDto> detalharDespesas(
+  public ContractResponse<DespesaDto> detalharDespesa(
       @PathVariable(value = "id") Long id, HttpServletRequest request) {
 
     return ContractResponse.<DespesaDto>builder()
         .path(request.getServletPath())
-        .response(despesaService.detalhar(id))
+        .response(despesaService.detalhar(apiSecurity.getUsuarioGuid(), id))
         .build();
   }
 
   @Override
   @DeleteMapping(value = "/{id}")
   @ResponseStatus(HttpStatus.NO_CONTENT)
-  public void excluirReceita(@PathVariable(value = "id") Long id, HttpServletRequest request) {
-    despesaService.excluir(id);
+  public void excluirDespesa(@PathVariable(value = "id") Long id, HttpServletRequest request) {
+    despesaService.excluir(apiSecurity.getUsuarioGuid(), id);
   }
 }

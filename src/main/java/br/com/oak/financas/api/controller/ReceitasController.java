@@ -32,19 +32,20 @@ public class ReceitasController implements ReceitasControllerOpenApi {
 
     return ContractResponse.<List<ReceitaDto>>builder()
         .path(request.getServletPath())
-        .response(receitaService.listar(descricao))
+        .response(receitaService.listarReceitasDoUsuario(apiSecurity.getUsuarioGuid(), descricao))
         .build();
   }
 
   @Override
   @GetMapping("/{ano}/{mes}")
   @ResponseStatus(HttpStatus.OK)
-  public ContractResponse<List<ReceitaDto>> listarReceitasPorMes(
+  public ContractResponse<List<ReceitaDto>> buscarReceitasNoAnoMes(
       @PathVariable Integer ano, @PathVariable Integer mes, HttpServletRequest request) {
 
     return ContractResponse.<List<ReceitaDto>>builder()
         .path(request.getServletPath())
-        .response(receitaService.listarReceitasPorMes(ano, mes))
+        .response(
+            receitaService.buscarReceitasDoUsuarioNoAnoMes(apiSecurity.getUsuarioGuid(), ano, mes))
         .build();
   }
 
@@ -67,7 +68,7 @@ public class ReceitasController implements ReceitasControllerOpenApi {
       @PathVariable(value = "id") Long id,
       @RequestBody @Valid ReceitaInput receitaInput,
       HttpServletRequest request) {
-    receitaService.atualizar(id, receitaInput);
+    receitaService.atualizar(apiSecurity.getUsuarioGuid(), id, receitaInput);
   }
 
   @Override
@@ -78,7 +79,7 @@ public class ReceitasController implements ReceitasControllerOpenApi {
 
     return ContractResponse.<ReceitaDto>builder()
         .path(request.getServletPath())
-        .response(receitaService.detalhar(id))
+        .response(receitaService.detalhar(apiSecurity.getUsuarioGuid(), id))
         .build();
   }
 
@@ -86,6 +87,6 @@ public class ReceitasController implements ReceitasControllerOpenApi {
   @DeleteMapping(value = "/{id}")
   @ResponseStatus(HttpStatus.NO_CONTENT)
   public void excluirReceita(@PathVariable(value = "id") Long id, HttpServletRequest request) {
-    receitaService.excluir(id);
+    receitaService.excluir(apiSecurity.getUsuarioGuid(), id);
   }
 }

@@ -17,7 +17,11 @@ public class ModelMapperConfig {
 
     modelMapper
         .createTypeMap(Lancamento.class, Lancamento.class)
-        .addMappings(mapper -> mapper.skip(Lancamento::setId));
+        .addMappings(
+            mapper -> {
+              mapper.skip(Lancamento::setId);
+              mapper.skip(Lancamento::setUsuario);
+            });
 
     modelMapper
         .createTypeMap(ReceitaInput.class, Lancamento.class)

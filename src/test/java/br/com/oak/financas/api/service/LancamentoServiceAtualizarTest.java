@@ -48,12 +48,13 @@ public class LancamentoServiceAtualizarTest {
     when(lancamentoRepository.findById(1L))
         .thenReturn(Optional.of(Lancamento.builder().id(1L).build()));
 
-    when(lancamentoRepository.findByTipoAndDescricaoAndAnoAndMesAndDifferentId(
-            TipoLancamento.DESPESA, "descricao, alterado", 2022, 1, 1L))
+    when(lancamentoRepository.buscarLancamentoDoUsuarioNoMesmoDiaParaAlteracao(
+            1l, TipoLancamento.DESPESA, "descricao, alterado", 2022, 1, 1L))
         .thenReturn(Optional.empty());
 
     // Act
     lancamentoService.atualizar(
+        null,
         1l,
         Lancamento.builder()
             .tipo(TipoLancamento.DESPESA)
@@ -76,8 +77,8 @@ public class LancamentoServiceAtualizarTest {
     when(lancamentoRepository.findById(1L))
         .thenReturn(Optional.of(Lancamento.builder().id(1L).build()));
 
-    when(lancamentoRepository.findByTipoAndDescricaoAndAnoAndMesAndDifferentId(
-            TipoLancamento.DESPESA, "descricao, alterado", 2022, 1, 1L))
+    when(lancamentoRepository.buscarLancamentoDoUsuarioNoMesmoDiaParaAlteracao(
+            1l, TipoLancamento.DESPESA, "descricao, alterado", 2022, 1, 1L))
         .thenReturn(Optional.of(Lancamento.builder().build()));
 
     Lancamento lancamentoAlterado =
@@ -91,7 +92,8 @@ public class LancamentoServiceAtualizarTest {
     // Act
     BusinessException businessException =
         assertThrows(
-            BusinessException.class, () -> lancamentoService.atualizar(1l, lancamentoAlterado));
+            BusinessException.class,
+            () -> lancamentoService.atualizar(null, 1l, lancamentoAlterado));
 
     // Assert
     assertEquals(ErrorCode.DESPESA_JA_EXISTE, businessException.getErrorCode());

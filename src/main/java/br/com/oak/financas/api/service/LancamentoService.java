@@ -7,21 +7,21 @@ import java.util.List;
 
 public interface LancamentoService {
 
-  List<Lancamento> listarReceitas(String descricao);
+  List<Lancamento> listarReceitasDoUsuario(String guid, String descricao);
 
-  List<Lancamento> listarDespesas(String descricao);
+  List<Lancamento> listarDespesasDoUsuario(String guid, String descricao);
 
-  List<Lancamento> listarReceitasPorMes(Integer ano, Integer mes);
+  List<Lancamento> buscarReceitasDoUsuarioNoAnoMes(String guid, Integer ano, Integer mes);
 
-  List<Lancamento> listarDespesasPorMes(Integer ano, Integer mes);
+  List<Lancamento> buscarDespesasDoUsuarioNoAnoMes(String guid, Integer ano, Integer mes);
 
   ResumoDto detalharResumoDoMes(Integer ano, Integer mes);
 
   void inserir(String guid, Lancamento lancamento);
 
-  void atualizar(Long id, Lancamento lancamento);
+  void atualizar(String guid, Long id, Lancamento lancamento);
 
-  void excluir(Long id);
+  void excluirLancamentoDoUsuarioPorId(String guid, Long id);
 
-  Lancamento buscarPeloId(Long id);
+  Lancamento buscarLancamentoDoUsuarioPorId(String guid, Long id);
 }

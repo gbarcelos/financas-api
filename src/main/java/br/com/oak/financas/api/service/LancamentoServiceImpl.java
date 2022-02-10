@@ -11,6 +11,7 @@ import br.com.oak.financas.api.model.dto.ResumoDto;
 import br.com.oak.financas.api.repository.LancamentoRepository;
 import br.com.oak.financas.api.repository.UsuarioRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +22,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class LancamentoServiceImpl implements LancamentoService {
@@ -32,23 +34,25 @@ public class LancamentoServiceImpl implements LancamentoService {
   private final ModelMapper modelMapper;
 
   @Override
-  public List<Lancamento> listarReceitas(String descricao) {
-    return listar(TipoLancamento.RECEITA, descricao);
+  public List<Lancamento> listarReceitasDoUsuario(String guid, String descricao) {
+    return listar(guid, TipoLancamento.RECEITA, descricao);
   }
 
   @Override
-  public List<Lancamento> listarDespesas(String descricao) {
-    return listar(TipoLancamento.DESPESA, descricao);
+  public List<Lancamento> listarDespesasDoUsuario(String guid, String descricao) {
+    return listar(guid, TipoLancamento.DESPESA, descricao);
   }
 
   @Override
-  public List<Lancamento> listarReceitasPorMes(Integer ano, Integer mes) {
-    return lancamentoRepository.findByTipoAndAnoAndMes(TipoLancamento.RECEITA, ano, mes);
+  public List<Lancamento> buscarReceitasDoUsuarioNoAnoMes(String guid, Integer ano, Integer mes) {
+    return lancamentoRepository.buscarLancamentosDoUsuarioNoAnoMes(
+        guid, TipoLancamento.RECEITA, ano, mes);
   }
 
   @Override
-  public List<Lancamento> listarDespesasPorMes(Integer ano, Integer mes) {
-    return lancamentoRepository.findByTipoAndAnoAndMes(TipoLancamento.DESPESA, ano, mes);
+  public List<Lancamento> buscarDespesasDoUsuarioNoAnoMes(String guid, Integer ano, Integer mes) {
+    return lancamentoRepository.buscarLancamentosDoUsuarioNoAnoMes(
+        guid, TipoLancamento.DESPESA, ano, mes);
   }
 
   @Override
@@ -63,7 +67,7 @@ public class LancamentoServiceImpl implements LancamentoService {
     BigDecimal saldoFinal = totalDasReceitas.subtract(totalDasDespesas);
 
     List<DespesasPorCategoriaDto> despesasPorCategoria =
-        lancamentoRepository.valorTotalLancamentosPorTipoAnoMesPorCategoria(
+        lancamentoRepository.obterValorTotalDosLancamentosPorTipoAnoMesPorCategoria(
             TipoLancamento.DESPESA, ano, mes);
 
     return ResumoDto.builder()
@@ -85,9 +89,9 @@ public class LancamentoServiceImpl implements LancamentoService {
   }
 
   @Override
-  public void atualizar(Long id, Lancamento lancamento) {
+  public void atualizar(String guid, Long id, Lancamento lancamento) {
 
-    Lancamento lancamentoBanco = buscarPeloId(id);
+    Lancamento lancamentoBanco = buscarLancamentoDoUsuarioPorId(guid, id);
 
     modelMapper.map(lancamento, lancamentoBanco);
 
@@ -97,14 +101,15 @@ public class LancamentoServiceImpl implements LancamentoService {
   }
 
   @Override
-  public void excluir(Long id) {
-    lancamentoRepository.delete(buscarPeloId(id));
+  public void excluirLancamentoDoUsuarioPorId(String guid, Long id) {
+    lancamentoRepository.delete(buscarLancamentoDoUsuarioPorId(guid, id));
   }
 
   @Override
-  public Lancamento buscarPeloId(Long id) {
+  public Lancamento buscarLancamentoDoUsuarioPorId(String guid, Long id) {
+
     return lancamentoRepository
-        .findById(id)
+        .buscarLancamentoDoUsuarioPorId(guid, id)
         .orElseThrow(
             () ->
                 new NotFoundException(
@@ -122,18 +127,19 @@ public class LancamentoServiceImpl implements LancamentoService {
                     String.format("O registro com o guid '%s' não existe", guid)));
   }
 
-  private List<Lancamento> listar(TipoLancamento tipo, String descricao) {
+  private List<Lancamento> listar(String guid, TipoLancamento tipo, String descricao) {
 
     if (StringUtils.isNotBlank(descricao)) {
-      return lancamentoRepository.findByTipoAndDescricaoLike(tipo, "%" + descricao + "%");
+      return lancamentoRepository.findAllByUsuarioGuidAndTipoAndDescricaoLike(
+          guid, tipo, "%" + descricao + "%");
     }
-    return lancamentoRepository.findAllByTipo(tipo);
+    return lancamentoRepository.findAllByUsuarioGuidAndTipo(guid, tipo);
   }
 
   private void validarInclusao(Lancamento lancamento) {
 
     Optional<Lancamento> lancamentoOptional =
-        lancamentoRepository.buscarLancamentoNoMesmoDia(
+        lancamentoRepository.buscarLancamentoDoUsuarioNoMesmoDia(
             lancamento.getUsuario().getId(),
             lancamento.getTipo(),
             lancamento.getDescricao(),
@@ -146,7 +152,8 @@ public class LancamentoServiceImpl implements LancamentoService {
   private void validarAlteracao(Lancamento lancamento) {
 
     Optional<Lancamento> lancamentoOptional =
-        lancamentoRepository.findByTipoAndDescricaoAndAnoAndMesAndDifferentId(
+        lancamentoRepository.buscarLancamentoDoUsuarioNoMesmoDiaParaAlteracao(
+            lancamento.getUsuario().getId(),
             lancamento.getTipo(),
             lancamento.getDescricao(),
             lancamento.getData().getYear(),
@@ -160,6 +167,9 @@ public class LancamentoServiceImpl implements LancamentoService {
 
     if (lancamentoOptional.isPresent()) {
 
+      log.warn(
+          "O lancamento já existe. Encontrado o lançamento com o id {} com os mesmos dados.",
+          lancamentoOptional.get().getId());
       if (TipoLancamento.RECEITA.equals(lancamentoOptional.get().getTipo())) {
         throw new BusinessException(
             ErrorCode.RECEITA_JA_EXISTE,
@@ -175,7 +185,7 @@ public class LancamentoServiceImpl implements LancamentoService {
       TipoLancamento tipo, Integer ano, Integer mes) {
 
     BigDecimal totalDasReceitas =
-        lancamentoRepository.valorTotalLancamentosPorTipoAnoMes(tipo, ano, mes);
+        lancamentoRepository.obterValorTotalLancamentosPorTipoAnoMes(tipo, ano, mes);
 
     if (Objects.nonNull(totalDasReceitas)) {
       return totalDasReceitas;

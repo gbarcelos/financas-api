@@ -18,13 +18,13 @@ public class ReceitaServiceImpl implements ReceitaService {
   private final ReceitaMapper receitaMapper;
 
   @Override
-  public List<ReceitaDto> listar(String descricao) {
-    return receitaMapper.unmap(lancamentoService.listarReceitas(descricao));
+  public List<ReceitaDto> listarReceitasDoUsuario(String guid, String descricao) {
+    return receitaMapper.unmap(lancamentoService.listarReceitasDoUsuario(guid, descricao));
   }
 
   @Override
-  public List<ReceitaDto> listarReceitasPorMes(Integer ano, Integer mes) {
-    return receitaMapper.unmap(lancamentoService.listarReceitasPorMes(ano, mes));
+  public List<ReceitaDto> buscarReceitasDoUsuarioNoAnoMes(String guid, Integer ano, Integer mes) {
+    return receitaMapper.unmap(lancamentoService.buscarReceitasDoUsuarioNoAnoMes(guid, ano, mes));
   }
 
   @Override
@@ -38,17 +38,17 @@ public class ReceitaServiceImpl implements ReceitaService {
   }
 
   @Override
-  public void atualizar(Long id, ReceitaInput receitaInput) {
-    lancamentoService.atualizar(id, receitaMapper.map(receitaInput));
+  public void atualizar(String guid, Long id, ReceitaInput receitaInput) {
+    lancamentoService.atualizar(guid, id, receitaMapper.map(receitaInput));
   }
 
   @Override
-  public ReceitaDto detalhar(Long id) {
-    return receitaMapper.unmap(lancamentoService.buscarPeloId(id));
+  public ReceitaDto detalhar(String guid, Long id) {
+    return receitaMapper.unmap(lancamentoService.buscarLancamentoDoUsuarioPorId(guid, id));
   }
 
   @Override
-  public void excluir(Long id) {
-    lancamentoService.excluir(id);
+  public void excluir(String guid, Long id) {
+    lancamentoService.excluirLancamentoDoUsuarioPorId(guid, id);
   }
 }
