@@ -1,6 +1,7 @@
 package br.com.oak.financas.api.security.authorizationserver;
 
 import br.com.oak.financas.api.config.FinancasApiProperties;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -25,15 +26,16 @@ import java.util.List;
 
 @Configuration
 @EnableAuthorizationServer
+@RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdapter {
 
-  @Autowired private AuthenticationManager authenticationManager;
+  private final AuthenticationManager authenticationManager;
 
-  @Autowired private UserDetailsService userDetailsService;
+  private final UserDetailsService userDetailsService;
 
-  @Autowired private DataSource dataSource;
+  private final DataSource dataSource;
 
-  @Autowired private FinancasApiProperties financasApiProperties;
+  private final FinancasApiProperties financasApiProperties;
 
   @Override
   public void configure(ClientDetailsServiceConfigurer clients) throws Exception {

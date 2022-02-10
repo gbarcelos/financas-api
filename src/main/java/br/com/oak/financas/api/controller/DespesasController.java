@@ -34,7 +34,7 @@ public class DespesasController implements DespesasControllerOpenApi {
 
     return ContractResponse.<List<DespesaDto>>builder()
         .path(request.getServletPath())
-        .response(despesaService.listarDespesasDoUsuario(apiSecurity.getUsuarioGuid(), descricao))
+        .response(despesaService.listarDespesasDoUsuario(apiSecurity.getGuid(), descricao))
         .build();
   }
 
@@ -47,8 +47,7 @@ public class DespesasController implements DespesasControllerOpenApi {
 
     return ContractResponse.<List<DespesaDto>>builder()
         .path(request.getServletPath())
-        .response(
-            despesaService.buscarDespesasDoUsuarioNoAnoMes(apiSecurity.getUsuarioGuid(), ano, mes))
+        .response(despesaService.buscarDespesasDoUsuarioNoAnoMes(apiSecurity.getGuid(), ano, mes))
         .build();
   }
 
@@ -61,7 +60,7 @@ public class DespesasController implements DespesasControllerOpenApi {
 
     return ContractResponse.<DespesaDto>builder()
         .path(request.getServletPath())
-        .response(despesaService.inserir(apiSecurity.getUsuarioGuid(), despesaInput))
+        .response(despesaService.inserir(apiSecurity.getGuid(), despesaInput))
         .build();
   }
 
@@ -73,7 +72,7 @@ public class DespesasController implements DespesasControllerOpenApi {
       @PathVariable(value = "id") Long id,
       @RequestBody @Valid DespesaInput despesaInput,
       HttpServletRequest request) {
-    despesaService.atualizar(apiSecurity.getUsuarioGuid(), id, despesaInput);
+    despesaService.atualizar(apiSecurity.getGuid(), id, despesaInput);
   }
 
   @CheckSecurity.Despesas.PodeConsultar
@@ -85,7 +84,7 @@ public class DespesasController implements DespesasControllerOpenApi {
 
     return ContractResponse.<DespesaDto>builder()
         .path(request.getServletPath())
-        .response(despesaService.detalhar(apiSecurity.getUsuarioGuid(), id))
+        .response(despesaService.detalhar(apiSecurity.getGuid(), id))
         .build();
   }
 
@@ -94,6 +93,6 @@ public class DespesasController implements DespesasControllerOpenApi {
   @DeleteMapping(value = "/{id}")
   @ResponseStatus(HttpStatus.NO_CONTENT)
   public void excluirDespesa(@PathVariable(value = "id") Long id, HttpServletRequest request) {
-    despesaService.excluir(apiSecurity.getUsuarioGuid(), id);
+    despesaService.excluir(apiSecurity.getGuid(), id);
   }
 }

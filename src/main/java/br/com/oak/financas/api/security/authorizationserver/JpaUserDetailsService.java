@@ -2,6 +2,7 @@ package br.com.oak.financas.api.security.authorizationserver;
 
 import br.com.oak.financas.api.entity.Usuario;
 import br.com.oak.financas.api.repository.UsuarioRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -15,9 +16,10 @@ import java.util.Collection;
 import java.util.stream.Collectors;
 
 @Service
+@RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class JpaUserDetailsService implements UserDetailsService {
 
-  @Autowired private UsuarioRepository usuarioRepository;
+  private final UsuarioRepository usuarioRepository;
 
   @Transactional(readOnly = true)
   @Override

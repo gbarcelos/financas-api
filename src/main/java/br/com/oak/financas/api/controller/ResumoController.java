@@ -31,7 +31,7 @@ public class ResumoController implements ResumoControllerOpenApi {
 
     return ContractResponse.<ResumoDto>builder()
         .path(request.getServletPath())
-        .response(lancamentoService.detalharResumoDoMes(apiSecurity.getUsuarioGuid(), ano, mes))
+        .response(lancamentoService.detalharResumoDoMes(apiSecurity.getGuid(), ano, mes))
         .build();
   }
 }

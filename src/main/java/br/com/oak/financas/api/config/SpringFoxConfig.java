@@ -1,4 +1,4 @@
-package br.com.oak.financas.api.config.springfox;
+package br.com.oak.financas.api.config;
 
 import br.com.oak.financas.api.model.contract.response.ErrorResponse;
 import br.com.oak.financas.api.model.dto.LancamentoDto;
@@ -27,6 +27,8 @@ import java.util.List;
 @Configuration
 @EnableSwagger2
 public class SpringFoxConfig implements WebMvcConfigurer {
+
+  private static final String SECURITY_CONTEXT_NAME = "LancamentosApi";
 
   @Bean
   public Docket apiDocket() {
@@ -88,7 +90,7 @@ public class SpringFoxConfig implements WebMvcConfigurer {
             .build());
   }
 
-  public ApiInfo apiInfo() {
+  private ApiInfo apiInfo() {
     return new ApiInfoBuilder()
         .title("Finanças API")
         .description("API para controle de orçamento doméstico")
@@ -98,7 +100,7 @@ public class SpringFoxConfig implements WebMvcConfigurer {
 
   private SecurityScheme securityScheme() {
     return new OAuthBuilder()
-        .name("LancamentosApi")
+        .name(SECURITY_CONTEXT_NAME)
         .grantTypes(grantTypes())
         .scopes(scopes())
         .build();
@@ -108,7 +110,7 @@ public class SpringFoxConfig implements WebMvcConfigurer {
 
     SecurityReference securityReference =
         SecurityReference.builder()
-            .reference("LancamentosApi")
+            .reference(SECURITY_CONTEXT_NAME)
             .scopes(scopes().toArray(new AuthorizationScope[0]))
             .build();
 

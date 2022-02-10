@@ -1,6 +1,7 @@
 package br.com.oak.financas.api.security;
 
 import br.com.oak.financas.api.config.FinancasApiProperties;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -25,9 +26,10 @@ import java.util.stream.Collectors;
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
+@RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class ResourceServerConfig extends WebSecurityConfigurerAdapter {
 
-  @Autowired private FinancasApiProperties financasApiProperties;
+  private final FinancasApiProperties financasApiProperties;
 
   @Override
   protected void configure(HttpSecurity http) throws Exception {

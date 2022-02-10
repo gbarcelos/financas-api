@@ -14,7 +14,7 @@ public class ApiSecurity {
     return SecurityContextHolder.getContext().getAuthentication();
   }
 
-  public String getUsuarioGuid() {
+  public String getGuid() {
     Jwt jwt = (Jwt) getAuthentication().getPrincipal();
 
     return jwt.getClaim(GUID);

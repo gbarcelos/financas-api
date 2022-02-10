@@ -34,7 +34,7 @@ public class ReceitasController implements ReceitasControllerOpenApi {
 
     return ContractResponse.<List<ReceitaDto>>builder()
         .path(request.getServletPath())
-        .response(receitaService.listarReceitasDoUsuario(apiSecurity.getUsuarioGuid(), descricao))
+        .response(receitaService.listarReceitasDoUsuario(apiSecurity.getGuid(), descricao))
         .build();
   }
 
@@ -47,8 +47,7 @@ public class ReceitasController implements ReceitasControllerOpenApi {
 
     return ContractResponse.<List<ReceitaDto>>builder()
         .path(request.getServletPath())
-        .response(
-            receitaService.buscarReceitasDoUsuarioNoAnoMes(apiSecurity.getUsuarioGuid(), ano, mes))
+        .response(receitaService.buscarReceitasDoUsuarioNoAnoMes(apiSecurity.getGuid(), ano, mes))
         .build();
   }
 
@@ -61,7 +60,7 @@ public class ReceitasController implements ReceitasControllerOpenApi {
 
     return ContractResponse.<ReceitaDto>builder()
         .path(request.getServletPath())
-        .response(receitaService.inserir(apiSecurity.getUsuarioGuid(), receitaInput))
+        .response(receitaService.inserir(apiSecurity.getGuid(), receitaInput))
         .build();
   }
 
@@ -73,7 +72,7 @@ public class ReceitasController implements ReceitasControllerOpenApi {
       @PathVariable(value = "id") Long id,
       @RequestBody @Valid ReceitaInput receitaInput,
       HttpServletRequest request) {
-    receitaService.atualizar(apiSecurity.getUsuarioGuid(), id, receitaInput);
+    receitaService.atualizar(apiSecurity.getGuid(), id, receitaInput);
   }
 
   @CheckSecurity.Receitas.PodeConsultar
@@ -85,7 +84,7 @@ public class ReceitasController implements ReceitasControllerOpenApi {
 
     return ContractResponse.<ReceitaDto>builder()
         .path(request.getServletPath())
-        .response(receitaService.detalhar(apiSecurity.getUsuarioGuid(), id))
+        .response(receitaService.detalhar(apiSecurity.getGuid(), id))
         .build();
   }
 
@@ -94,6 +93,6 @@ public class ReceitasController implements ReceitasControllerOpenApi {
   @DeleteMapping(value = "/{id}")
   @ResponseStatus(HttpStatus.NO_CONTENT)
   public void excluirReceita(@PathVariable(value = "id") Long id, HttpServletRequest request) {
-    receitaService.excluir(apiSecurity.getUsuarioGuid(), id);
+    receitaService.excluir(apiSecurity.getGuid(), id);
   }
 }
