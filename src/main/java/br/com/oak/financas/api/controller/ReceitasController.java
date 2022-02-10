@@ -5,6 +5,7 @@ import br.com.oak.financas.api.model.contract.response.ContractResponse;
 import br.com.oak.financas.api.model.dto.ReceitaDto;
 import br.com.oak.financas.api.model.input.ReceitaInput;
 import br.com.oak.financas.api.security.ApiSecurity;
+import br.com.oak.financas.api.security.CheckSecurity;
 import br.com.oak.financas.api.service.ReceitaService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +25,7 @@ public class ReceitasController implements ReceitasControllerOpenApi {
   private final ReceitaService receitaService;
   private final ApiSecurity apiSecurity;
 
+  @CheckSecurity.Receitas.PodeConsultar
   @Override
   @GetMapping
   @ResponseStatus(HttpStatus.OK)
@@ -36,6 +38,7 @@ public class ReceitasController implements ReceitasControllerOpenApi {
         .build();
   }
 
+  @CheckSecurity.Receitas.PodeConsultar
   @Override
   @GetMapping("/{ano}/{mes}")
   @ResponseStatus(HttpStatus.OK)
@@ -49,6 +52,7 @@ public class ReceitasController implements ReceitasControllerOpenApi {
         .build();
   }
 
+  @CheckSecurity.Receitas.PodeEditar
   @Override
   @PostMapping
   @ResponseStatus(HttpStatus.CREATED)
@@ -61,6 +65,7 @@ public class ReceitasController implements ReceitasControllerOpenApi {
         .build();
   }
 
+  @CheckSecurity.Receitas.PodeEditar
   @Override
   @PutMapping(value = "/{id}")
   @ResponseStatus(HttpStatus.NO_CONTENT)
@@ -71,6 +76,7 @@ public class ReceitasController implements ReceitasControllerOpenApi {
     receitaService.atualizar(apiSecurity.getUsuarioGuid(), id, receitaInput);
   }
 
+  @CheckSecurity.Receitas.PodeConsultar
   @Override
   @GetMapping(value = "/{id}")
   @ResponseStatus(HttpStatus.OK)
@@ -83,6 +89,7 @@ public class ReceitasController implements ReceitasControllerOpenApi {
         .build();
   }
 
+  @CheckSecurity.Receitas.PodeEditar
   @Override
   @DeleteMapping(value = "/{id}")
   @ResponseStatus(HttpStatus.NO_CONTENT)

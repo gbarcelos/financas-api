@@ -36,10 +36,6 @@ public class ResourceServerConfig extends WebSecurityConfigurerAdapter {
         .authorizeRequests()
         .antMatchers("/oauth/**")
         .authenticated()
-        //
-        .antMatchers("/v1/**")
-        .authenticated()
-        //
         .and()
         .csrf()
         .disable()

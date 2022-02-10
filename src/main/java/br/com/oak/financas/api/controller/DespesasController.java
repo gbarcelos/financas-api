@@ -5,6 +5,7 @@ import br.com.oak.financas.api.model.contract.response.ContractResponse;
 import br.com.oak.financas.api.model.dto.DespesaDto;
 import br.com.oak.financas.api.model.input.DespesaInput;
 import br.com.oak.financas.api.security.ApiSecurity;
+import br.com.oak.financas.api.security.CheckSecurity;
 import br.com.oak.financas.api.service.DespesaService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +25,7 @@ public class DespesasController implements DespesasControllerOpenApi {
   private final DespesaService despesaService;
   private final ApiSecurity apiSecurity;
 
+  @CheckSecurity.Despesas.PodeConsultar
   @Override
   @GetMapping
   @ResponseStatus(HttpStatus.OK)
@@ -36,6 +38,7 @@ public class DespesasController implements DespesasControllerOpenApi {
         .build();
   }
 
+  @CheckSecurity.Despesas.PodeConsultar
   @Override
   @GetMapping("/{ano}/{mes}")
   @ResponseStatus(HttpStatus.OK)
@@ -49,6 +52,7 @@ public class DespesasController implements DespesasControllerOpenApi {
         .build();
   }
 
+  @CheckSecurity.Despesas.PodeEditar
   @Override
   @PostMapping
   @ResponseStatus(HttpStatus.CREATED)
@@ -61,6 +65,7 @@ public class DespesasController implements DespesasControllerOpenApi {
         .build();
   }
 
+  @CheckSecurity.Despesas.PodeEditar
   @Override
   @PutMapping(value = "/{id}")
   @ResponseStatus(HttpStatus.NO_CONTENT)
@@ -71,6 +76,7 @@ public class DespesasController implements DespesasControllerOpenApi {
     despesaService.atualizar(apiSecurity.getUsuarioGuid(), id, despesaInput);
   }
 
+  @CheckSecurity.Despesas.PodeConsultar
   @Override
   @GetMapping(value = "/{id}")
   @ResponseStatus(HttpStatus.OK)
@@ -83,6 +89,7 @@ public class DespesasController implements DespesasControllerOpenApi {
         .build();
   }
 
+  @CheckSecurity.Despesas.PodeEditar
   @Override
   @DeleteMapping(value = "/{id}")
   @ResponseStatus(HttpStatus.NO_CONTENT)

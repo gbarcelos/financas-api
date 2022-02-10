@@ -16,6 +16,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.validation.BindException;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
@@ -215,6 +216,27 @@ public class CommonExceptionHandler extends ResponseEntityExceptionHandler {
         ErrorContractResponse.builder()
             .error(
                 createErrorResponseBuilder(status, ex.getErrorCode(), ex.getFriendlyMessage())
+                    .build())
+            .path(servletWebRequest.getRequest().getServletPath())
+            .build();
+
+    return handleExceptionInternal(ex, errorContractResponse, new HttpHeaders(), status, request);
+  }
+
+  @ExceptionHandler(AccessDeniedException.class)
+  public ResponseEntity<Object> handleAccessDenied(AccessDeniedException ex, WebRequest request) {
+
+    ServletWebRequest servletWebRequest = (ServletWebRequest) request;
+
+    HttpStatus status = HttpStatus.FORBIDDEN;
+
+    ErrorContractResponse errorContractResponse =
+        ErrorContractResponse.builder()
+            .error(
+                createErrorResponseBuilder(
+                        status,
+                        ErrorCode.ACCESS_DENIED,
+                        "Sem permissão para executar essa operação.")
                     .build())
             .path(servletWebRequest.getRequest().getServletPath())
             .build();

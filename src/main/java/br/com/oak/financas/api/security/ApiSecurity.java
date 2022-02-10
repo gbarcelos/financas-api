@@ -37,7 +37,11 @@ public class ApiSecurity {
     return hasAuthority("SCOPE_READ");
   }
 
-  public boolean podeConsultarCategorias() {
+  public boolean podeConsultar() {
     return isAutenticado() && temEscopoLeitura();
+  }
+
+  public boolean podeEditar() {
+    return isAutenticado() && temEscopoEscrita();
   }
 }
