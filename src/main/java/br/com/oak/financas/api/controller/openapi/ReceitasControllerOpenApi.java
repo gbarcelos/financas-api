@@ -11,14 +11,18 @@ import java.util.List;
 @Api(tags = "Receita")
 public interface ReceitasControllerOpenApi {
 
-  @ApiOperation("Lista as receitas cadastradas no sistema")
+  @ApiOperation(
+      value = "Lista as receitas cadastradas no sistema",
+      tags = {"Consultas"})
   @ApiResponses({@ApiResponse(code = 200, message = "Receitas listadas com sucesso")})
   ContractResponse<List<ReceitaDto>> listarReceitas(
       @ApiParam(name = "descricao", type = "String", value = "Descrição de uma receita")
           String descricao,
       HttpServletRequest request);
 
-  @ApiOperation("Lista as receitas cadastradas no sistema por ano e mês")
+  @ApiOperation(
+      value = "Lista as receitas cadastradas no sistema por ano e mês",
+      tags = {"Consultas"})
   @ApiResponses({@ApiResponse(code = 200, message = "Receitas listadas com sucesso")})
   ContractResponse<List<ReceitaDto>> buscarReceitasNoAnoMes(
       Integer ano, Integer mes, HttpServletRequest request);
@@ -42,7 +46,9 @@ public interface ReceitasControllerOpenApi {
           ReceitaInput receitaInput,
       HttpServletRequest request);
 
-  @ApiOperation("Detalha uma receita cadastrada no sistema")
+  @ApiOperation(
+      value = "Detalha uma receita cadastrada no sistema",
+      tags = {"Consultas"})
   @ApiResponses({@ApiResponse(code = 200, message = "Receita detalhada com sucesso")})
   ContractResponse<ReceitaDto> detalharReceita(Long id, HttpServletRequest request);
 

@@ -11,14 +11,18 @@ import java.util.List;
 @Api(tags = "Despesa")
 public interface DespesasControllerOpenApi {
 
-  @ApiOperation("Lista as despesas cadastradas no sistema")
+  @ApiOperation(
+      value = "Lista as despesas cadastradas no sistema",
+      tags = {"Consultas"})
   @ApiResponses({@ApiResponse(code = 200, message = "Despesas listadas com sucesso")})
   ContractResponse<List<DespesaDto>> listarDespesas(
       @ApiParam(name = "descricao", type = "String", value = "Descrição de uma despesa")
           String descricao,
       HttpServletRequest request);
 
-  @ApiOperation("Lista as despesas cadastradas no sistema por ano e mês")
+  @ApiOperation(
+      value = "Lista as despesas cadastradas no sistema por ano e mês",
+      tags = {"Consultas"})
   @ApiResponses({@ApiResponse(code = 200, message = "Despesas listadas com sucesso")})
   ContractResponse<List<DespesaDto>> buscarDespesasNoAnoMes(
       Integer ano, Integer mes, HttpServletRequest request);
@@ -42,7 +46,9 @@ public interface DespesasControllerOpenApi {
           DespesaInput despesaInput,
       HttpServletRequest request);
 
-  @ApiOperation("Detalha uma despesa cadastrada no sistema")
+  @ApiOperation(
+      value = "Detalha uma despesa cadastrada no sistema",
+      tags = {"Consultas"})
   @ApiResponses({@ApiResponse(code = 200, message = "Despesa detalhada com sucesso")})
   ContractResponse<DespesaDto> detalharDespesa(Long id, HttpServletRequest request);
 
