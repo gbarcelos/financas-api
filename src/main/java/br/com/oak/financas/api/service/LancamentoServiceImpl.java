@@ -56,24 +56,24 @@ public class LancamentoServiceImpl implements LancamentoService {
   }
 
   @Override
-  public ResumoDto detalharResumoDoMes(Integer ano, Integer mes) {
+  public ResumoDto detalharResumoDoMes(String guid, Integer ano, Integer mes) {
 
-    BigDecimal totalDasReceitas =
-        getValorTotalLancamentosPorTipoAnoMes(TipoLancamento.RECEITA, ano, mes);
+    BigDecimal totalReceitas =
+        getTotalLancamentosDoUsuarioPorAnoMes(guid, TipoLancamento.RECEITA, ano, mes);
 
-    BigDecimal totalDasDespesas =
-        getValorTotalLancamentosPorTipoAnoMes(TipoLancamento.DESPESA, ano, mes);
+    BigDecimal totalDespesas =
+        getTotalLancamentosDoUsuarioPorAnoMes(guid, TipoLancamento.DESPESA, ano, mes);
 
-    BigDecimal saldoFinal = totalDasReceitas.subtract(totalDasDespesas);
+    BigDecimal saldo = totalReceitas.subtract(totalDespesas);
 
     List<DespesasPorCategoriaDto> despesasPorCategoria =
-        lancamentoRepository.obterValorTotalDosLancamentosPorTipoAnoMesPorCategoria(
-            TipoLancamento.DESPESA, ano, mes);
+        lancamentoRepository.obterTotalLancamentosDoUsuarioPorAnoMesCategoria(
+            guid, TipoLancamento.DESPESA, ano, mes);
 
     return ResumoDto.builder()
-        .totalDasReceitas(totalDasReceitas)
-        .totalDasDespesas(totalDasDespesas)
-        .saldoFinal(saldoFinal)
+        .totalDasReceitas(totalReceitas)
+        .totalDasDespesas(totalDespesas)
+        .saldoFinal(saldo)
         .despesasPorCategoria(despesasPorCategoria)
         .build();
   }
@@ -181,11 +181,11 @@ public class LancamentoServiceImpl implements LancamentoService {
     }
   }
 
-  private BigDecimal getValorTotalLancamentosPorTipoAnoMes(
-      TipoLancamento tipo, Integer ano, Integer mes) {
+  private BigDecimal getTotalLancamentosDoUsuarioPorAnoMes(
+      String guid, TipoLancamento tipo, Integer ano, Integer mes) {
 
     BigDecimal totalDasReceitas =
-        lancamentoRepository.obterValorTotalLancamentosPorTipoAnoMes(tipo, ano, mes);
+        lancamentoRepository.obterTotalLancamentosDoUsuarioPorAnoMes(guid, tipo, ano, mes);
 
     if (Objects.nonNull(totalDasReceitas)) {
       return totalDasReceitas;

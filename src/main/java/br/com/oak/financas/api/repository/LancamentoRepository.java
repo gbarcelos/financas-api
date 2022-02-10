@@ -52,12 +52,18 @@ public interface LancamentoRepository extends CrudRepository<Lancamento, Long> {
       @Param("mes") Integer mes);
 
   @Query(
-      "select sum(l.valor) from Lancamento l where l.tipo = :tipo and year(l.data) = :ano and month(l.data) = :mes")
-  BigDecimal obterValorTotalLancamentosPorTipoAnoMes(
-      @Param("tipo") TipoLancamento tipo, @Param("ano") Integer ano, @Param("mes") Integer mes);
+      "select sum(l.valor) from Lancamento l where l.usuario.guid = :guid and l.tipo = :tipo and year(l.data) = :ano and month(l.data) = :mes")
+  BigDecimal obterTotalLancamentosDoUsuarioPorAnoMes(
+      @Param("guid") String guid,
+      @Param("tipo") TipoLancamento tipo,
+      @Param("ano") Integer ano,
+      @Param("mes") Integer mes);
 
   @Query(
-      "select new br.com.oak.financas.api.model.dto.DespesasPorCategoriaDto(c.descricao, sum(l.valor)) from Lancamento l join l.categoria c where l.tipo = :tipo and year(l.data) = :ano and month(l.data) = :mes group by l.categoria")
-  List<DespesasPorCategoriaDto> obterValorTotalDosLancamentosPorTipoAnoMesPorCategoria(
-      @Param("tipo") TipoLancamento tipo, @Param("ano") Integer ano, @Param("mes") Integer mes);
+      "select new br.com.oak.financas.api.model.dto.DespesasPorCategoriaDto(c.descricao, sum(l.valor)) from Lancamento l join l.categoria c where l.usuario.guid = :guid and l.tipo = :tipo and year(l.data) = :ano and month(l.data) = :mes group by l.categoria")
+  List<DespesasPorCategoriaDto> obterTotalLancamentosDoUsuarioPorAnoMesCategoria(
+      @Param("guid") String guid,
+      @Param("tipo") TipoLancamento tipo,
+      @Param("ano") Integer ano,
+      @Param("mes") Integer mes);
 }

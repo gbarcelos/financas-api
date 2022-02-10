@@ -3,6 +3,7 @@ package br.com.oak.financas.api.controller;
 import br.com.oak.financas.api.controller.openapi.ResumoControllerOpenApi;
 import br.com.oak.financas.api.model.contract.response.ContractResponse;
 import br.com.oak.financas.api.model.dto.ResumoDto;
+import br.com.oak.financas.api.security.ApiSecurity;
 import br.com.oak.financas.api.service.LancamentoService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,7 @@ import javax.servlet.http.HttpServletRequest;
 public class ResumoController implements ResumoControllerOpenApi {
 
   private final LancamentoService lancamentoService;
+  private final ApiSecurity apiSecurity;
 
   @Override
   @GetMapping("/{ano}/{mes}")
@@ -27,7 +29,7 @@ public class ResumoController implements ResumoControllerOpenApi {
 
     return ContractResponse.<ResumoDto>builder()
         .path(request.getServletPath())
-        .response(lancamentoService.detalharResumoDoMes(ano, mes))
+        .response(lancamentoService.detalharResumoDoMes(apiSecurity.getUsuarioGuid(), ano, mes))
         .build();
   }
 }

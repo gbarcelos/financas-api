@@ -15,7 +15,7 @@ public interface LancamentoService {
 
   List<Lancamento> buscarDespesasDoUsuarioNoAnoMes(String guid, Integer ano, Integer mes);
 
-  ResumoDto detalharResumoDoMes(Integer ano, Integer mes);
+  ResumoDto detalharResumoDoMes(String guid, Integer ano, Integer mes);
 
   void inserir(String guid, Lancamento lancamento);
 
