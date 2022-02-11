@@ -2,6 +2,7 @@ package br.com.oak.financas.api.model;
 
 public enum ErrorCode {
   INTERNAL_SERVER_ERROR,
+  ACCESS_DENIED,
   REQUIRED_FIELD,
   INVALID_DATA,
   INVALID_PARAMETER,

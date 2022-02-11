@@ -26,7 +26,7 @@ public class ReceitaMapperTest {
   }
 
   @Test
-  public void deveMapear_quandoTodosOsCamposEstaoInformados() {
+  public void deveMapear_quandoTodosOsCamposObrigatoriosEstaoInformados() {
 
     ReceitaInput source =
         ReceitaInput.builder()

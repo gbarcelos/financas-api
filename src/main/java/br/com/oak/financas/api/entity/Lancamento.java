@@ -7,14 +7,16 @@ import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
-@Data
-@Builder
+@Getter
+@Setter
 @Entity
-@Table(name = "lancamento")
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class Lancamento {
 
+  @EqualsAndHashCode.Include
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
@@ -31,4 +33,8 @@ public class Lancamento {
   @ManyToOne
   @JoinColumn(name = "categoria_id")
   private Categoria categoria;
+
+  @ManyToOne
+  @JoinColumn(name = "usuario_id")
+  private Usuario usuario;
 }

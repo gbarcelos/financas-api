@@ -7,15 +7,15 @@ import java.util.List;
 
 public interface ReceitaService {
 
-  List<ReceitaDto> listar(String descricao);
+  List<ReceitaDto> listarReceitasDoUsuario(String guid, String descricao);
 
-  List<ReceitaDto> listarReceitasPorMes(Integer ano, Integer mes);
+  List<ReceitaDto> buscarReceitasDoUsuarioNoAnoMes(String guid, Integer ano, Integer mes);
 
-  ReceitaDto inserir(ReceitaInput receitaInput);
+  ReceitaDto inserir(String guid, ReceitaInput receitaInput);
 
-  void atualizar(Long id, ReceitaInput receitaInput);
+  void atualizar(String guid, Long id, ReceitaInput receitaInput);
 
-  ReceitaDto detalhar(Long id);
+  ReceitaDto detalhar(String guid, Long id);
 
-  void excluir(Long id);
+  void excluir(String guid, Long id);
 }

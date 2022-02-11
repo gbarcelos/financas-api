@@ -7,15 +7,15 @@ import java.util.List;
 
 public interface DespesaService {
 
-  List<DespesaDto> listar(String descricao);
+  List<DespesaDto> listarDespesasDoUsuario(String guid, String descricao);
 
-  List<DespesaDto> listarDespesasPorMes(Integer ano, Integer mes);
+  List<DespesaDto> buscarDespesasDoUsuarioNoAnoMes(String guid, Integer ano, Integer mes);
 
-  DespesaDto inserir(DespesaInput despesaInput);
+  DespesaDto inserir(String guid, DespesaInput despesaInput);
 
-  void atualizar(Long id, DespesaInput despesaInput);
+  void atualizar(String guid, Long id, DespesaInput despesaInput);
 
-  DespesaDto detalhar(Long id);
+  DespesaDto detalhar(String guid, Long id);
 
-  void excluir(Long id);
+  void excluir(String guid, Long id);
 }
