@@ -4,6 +4,8 @@ import br.com.oak.financas.api.controller.openapi.ReceitasControllerOpenApi;
 import br.com.oak.financas.api.model.contract.response.ContractResponse;
 import br.com.oak.financas.api.model.dto.ReceitaDto;
 import br.com.oak.financas.api.model.input.ReceitaInput;
+import br.com.oak.financas.api.security.ApiSecurity;
+import br.com.oak.financas.api.security.CheckSecurity;
 import br.com.oak.financas.api.service.ReceitaService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +23,9 @@ import java.util.List;
 public class ReceitasController implements ReceitasControllerOpenApi {
 
   private final ReceitaService receitaService;
+  private final ApiSecurity apiSecurity;
 
+  @CheckSecurity.Receitas.PodeConsultar
   @Override
   @GetMapping
   @ResponseStatus(HttpStatus.OK)
@@ -30,22 +34,24 @@ public class ReceitasController implements ReceitasControllerOpenApi {
 
     return ContractResponse.<List<ReceitaDto>>builder()
         .path(request.getServletPath())
-        .response(receitaService.listar(descricao))
+        .response(receitaService.listarReceitasDoUsuario(apiSecurity.getGuid(), descricao))
         .build();
   }
 
+  @CheckSecurity.Receitas.PodeConsultar
   @Override
   @GetMapping("/{ano}/{mes}")
   @ResponseStatus(HttpStatus.OK)
-  public ContractResponse<List<ReceitaDto>> listarReceitasPorMes(
+  public ContractResponse<List<ReceitaDto>> buscarReceitasNoAnoMes(
       @PathVariable Integer ano, @PathVariable Integer mes, HttpServletRequest request) {
 
     return ContractResponse.<List<ReceitaDto>>builder()
         .path(request.getServletPath())
-        .response(receitaService.listarReceitasPorMes(ano, mes))
+        .response(receitaService.buscarReceitasDoUsuarioNoAnoMes(apiSecurity.getGuid(), ano, mes))
         .build();
   }
 
+  @CheckSecurity.Receitas.PodeEditar
   @Override
   @PostMapping
   @ResponseStatus(HttpStatus.CREATED)
@@ -54,10 +60,11 @@ public class ReceitasController implements ReceitasControllerOpenApi {
 
     return ContractResponse.<ReceitaDto>builder()
         .path(request.getServletPath())
-        .response(receitaService.inserir(receitaInput))
+        .response(receitaService.inserir(apiSecurity.getGuid(), receitaInput))
         .build();
   }
 
+  @CheckSecurity.Receitas.PodeEditar
   @Override
   @PutMapping(value = "/{id}")
   @ResponseStatus(HttpStatus.NO_CONTENT)
@@ -65,9 +72,10 @@ public class ReceitasController implements ReceitasControllerOpenApi {
       @PathVariable(value = "id") Long id,
       @RequestBody @Valid ReceitaInput receitaInput,
       HttpServletRequest request) {
-    receitaService.atualizar(id, receitaInput);
+    receitaService.atualizar(apiSecurity.getGuid(), id, receitaInput);
   }
 
+  @CheckSecurity.Receitas.PodeConsultar
   @Override
   @GetMapping(value = "/{id}")
   @ResponseStatus(HttpStatus.OK)
@@ -76,14 +84,15 @@ public class ReceitasController implements ReceitasControllerOpenApi {
 
     return ContractResponse.<ReceitaDto>builder()
         .path(request.getServletPath())
-        .response(receitaService.detalhar(id))
+        .response(receitaService.detalhar(apiSecurity.getGuid(), id))
         .build();
   }
 
+  @CheckSecurity.Receitas.PodeEditar
   @Override
   @DeleteMapping(value = "/{id}")
   @ResponseStatus(HttpStatus.NO_CONTENT)
   public void excluirReceita(@PathVariable(value = "id") Long id, HttpServletRequest request) {
-    receitaService.excluir(id);
+    receitaService.excluir(apiSecurity.getGuid(), id);
   }
 }

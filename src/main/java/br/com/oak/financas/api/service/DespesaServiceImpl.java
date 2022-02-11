@@ -18,37 +18,37 @@ public class DespesaServiceImpl implements DespesaService {
   private final DespesaMapper despesaMapper;
 
   @Override
-  public List<DespesaDto> listar(String descricao) {
-    return despesaMapper.unmap(lancamentoService.listarDespesas(descricao));
+  public List<DespesaDto> listarDespesasDoUsuario(String guid, String descricao) {
+    return despesaMapper.unmap(lancamentoService.listarDespesasDoUsuario(guid, descricao));
   }
 
   @Override
-  public List<DespesaDto> listarDespesasPorMes(Integer ano, Integer mes) {
-    return despesaMapper.unmap(lancamentoService.listarDespesasPorMes(ano, mes));
+  public List<DespesaDto> buscarDespesasDoUsuarioNoAnoMes(String guid, Integer ano, Integer mes) {
+    return despesaMapper.unmap(lancamentoService.buscarDespesasDoUsuarioNoAnoMes(guid, ano, mes));
   }
 
   @Override
-  public DespesaDto inserir(DespesaInput despesaInput) {
+  public DespesaDto inserir(String guid, DespesaInput despesaInput) {
 
     Lancamento lancamento = despesaMapper.map(despesaInput);
 
-    lancamentoService.inserir(lancamento);
+    lancamentoService.inserir(guid, lancamento);
 
     return despesaMapper.unmap(lancamento);
   }
 
   @Override
-  public void atualizar(Long id, DespesaInput despesaInput) {
-    lancamentoService.atualizar(id, despesaMapper.map(despesaInput));
+  public void atualizar(String guid, Long id, DespesaInput despesaInput) {
+    lancamentoService.atualizar(guid, id, despesaMapper.map(despesaInput));
   }
 
   @Override
-  public DespesaDto detalhar(Long id) {
-    return despesaMapper.unmap(lancamentoService.buscarPeloId(id));
+  public DespesaDto detalhar(String guid, Long id) {
+    return despesaMapper.unmap(lancamentoService.buscarLancamentoDoUsuarioPorId(guid, id));
   }
 
   @Override
-  public void excluir(Long id) {
-    lancamentoService.excluir(id);
+  public void excluir(String guid, Long id) {
+    lancamentoService.excluirLancamentoDoUsuarioPorId(guid, id);
   }
 }
