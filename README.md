@@ -35,7 +35,7 @@ Projeto de uma API para controle de orçamento familiar. A API deve permitir que
 	- ``UUID para identificar recursos sensíveis``
 - ``Testes``
 	- ``Testes de unidade na camada de serviço``
-	- ``Testes e2e automatizados para a API. Cada funcionalidade e seus critérios de aceite estão descritos nos arquivos de feature do Gherkin, que sabe interpretar a linguagem natural e o Cucumber foi utilizado para automatizar todos os critérios de aceite.``
+	- ``Testes e2e automatizados para a API. Cada funcionalidade e seus critérios de aceite estão descritos nos arquivos de feature do Gherkin, que sabe interpretar a linguagem natural, e o Cucumber foi utilizado para automatizar todos os critérios de aceite.``
 
 ## 📁 Acesso ao projeto
 Você pode acessar os arquivos do projeto clicando [aqui](https://github.com/gbarcelos/financas-api/tree/main/src/main/java/br/com/oak/financas/api).
