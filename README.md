@@ -12,10 +12,11 @@ Projeto de uma API para controle de orçamento familiar. A API deve permitir que
 
 - ``Java 8``
 - ``InteliJ IDEA``
-- ``Maven``
 - ``Spring Boot``
 - ``Spring Data JPA``
 - ``Spring Security OAuth``
+- ``MySQL``
+- ``Maven``
 - ``Flyway``
 - ``Lombok``
 - ``Bean Validation``
@@ -38,7 +39,7 @@ Projeto de uma API para controle de orçamento familiar. A API deve permitir que
 - ``Testes``
 	- ``Testes de unidade``
 	- ``Testes de integração na camada de serviço``
-	- ``Testes e2e automatizados para a API. Cada funcionalidade e seus critérios de aceite estão descritos nos arquivos de feature do Gherkin, que sabe interpretar a linguagem natural, e o Cucumber foi utilizado para automatizar todos os critérios de aceite.``
+	- ``Testes e2e automatizados para a API. Cada funcionalidade está descrita nos arquivos de feature do Gherkin, que sabe interpretar a linguagem natural, e o Cucumber automatiza todos os critérios de aceite.``
 
 ## 📁 Acesso ao projeto
 Você pode acessar os arquivos do projeto clicando [aqui](https://github.com/gbarcelos/financas-api/tree/main/src/main/java/br/com/oak/financas/api).
