@@ -24,6 +24,21 @@ Projeto de uma API para controle de orçamento familiar. A API deve permitir que
 
 - ``Criação e evolução do schema do banco de dados com Flyway.``
 - ``Utilização do Lombok nas classes para reduzir código boilerplate.``
+- ``Validações de entradas de dados na API com Bean Validation``
+- ``Documentação com OpenAPI (Swagger)``
+- ``Segurança com Spring Security, OAuth2 e JWT``
+- ``Tratamento e modelagem de erros da API``
+	- ``Modelagem de erros seguindo a RFC 7807 (Problem Details for HTTP APIs).``
+- ``Boas práticas e modelagem avançada de APIs``
+	- ``DTOs como alternativa ao uso de entidades como modelo de representação dos recursos.``
+	- ``ModelMapper para fazer Object Mapping e converter DTOs em entidades e vice-versa.``
+	- ``UUID para identificar recursos sensíveis``
+- ``Testes``
+	- ``Testes de unidade na camada de serviço``
+	- ``Testes e2e automatizados para a API. Cada funcionalidade e seus critérios de aceite estão descritos nos arquivos de feature do Gherkin, que sabe interpretar a linguagem natural e o Cucumber foi utilizado para automatizar todos os critérios de aceite.``
 
 ## 📁 Acesso ao projeto
 Você pode acessar os arquivos do projeto clicando [aqui](https://github.com/gbarcelos/financas-api/tree/main/src/main/java/br/com/oak/financas/api).
+
+## 📁 Acesso ao projeto de testes e2e
+Você pode acessar os arquivos do projeto de teste e2e clicando [aqui](https://github.com/gbarcelos/financas-api-e2e).
