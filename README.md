@@ -1,3 +1,5 @@
+![thumbnail-financas-api](https://user-images.githubusercontent.com/13111308/153711634-b84b17dd-4541-428c-be15-0987dc480097.png)
+
 # Resumo do projeto
 Projeto de uma API para controle de orçamento familiar. A API deve permitir que uma pessoa cadastre suas receitas e despesas do mês, bem como gerar um relatório mensal.
 
