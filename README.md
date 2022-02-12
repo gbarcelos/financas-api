@@ -12,9 +12,7 @@ Projeto de uma API para controle de orçamento familiar. A API deve permitir que
 
 - ``Java 8``
 - ``InteliJ IDEA``
-- ``Spring Boot``
-- ``Spring Data JPA``
-- ``Spring Security OAuth``
+- ``Spring Boot, Spring Data JPA, Spring Security OAuth``
 - ``MySQL``
 - ``Maven``
 - ``Flyway``
