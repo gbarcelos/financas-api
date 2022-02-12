@@ -8,6 +8,8 @@ Projeto de uma API para controle de orçamento familiar. A API deve permitir que
 
 ## ✔️ Tecnologias utilizadas
 
+<img alt="Java" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original-wordmark.svg" width="50" height="50"/> <img alt="IntelliJ" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/intellij/intellij-original.svg" width="50" height="50"/> <img alt="Spring" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/spring/spring-original-wordmark.svg" width="50" height="50"/> <img alt="MySQL" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original-wordmark.svg"  width="50" height="50"/>
+
 - ``Java 8``
 - ``InteliJ IDEA``
 - ``Maven``
@@ -34,7 +36,8 @@ Projeto de uma API para controle de orçamento familiar. A API deve permitir que
 	- ``ModelMapper para fazer Object Mapping e converter DTOs em entidades e vice-versa.``
 	- ``UUID para identificar recursos sensíveis``
 - ``Testes``
-	- ``Testes de unidade na camada de serviço``
+	- ``Testes de unidade``
+	- ``Testes de integração na camada de serviço``
 	- ``Testes e2e automatizados para a API. Cada funcionalidade e seus critérios de aceite estão descritos nos arquivos de feature do Gherkin, que sabe interpretar a linguagem natural, e o Cucumber foi utilizado para automatizar todos os critérios de aceite.``
 
 ## 📁 Acesso ao projeto
