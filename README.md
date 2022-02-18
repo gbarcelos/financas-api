@@ -10,7 +10,7 @@ Projeto de uma API para controle de orçamento familiar. A API deve permitir que
 
 ## ✔️ Tecnologias utilizadas
 
-<img alt="Java" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original-wordmark.svg" width="50" height="50"/> <img alt="IntelliJ" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/intellij/intellij-original.svg" width="50" height="50"/> <img alt="Spring" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/spring/spring-original-wordmark.svg" width="50" height="50"/> <img alt="MySQL" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original-wordmark.svg"  width="50" height="50"/>
+<img alt="Java" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original-wordmark.svg" width="50" height="50"/> <img alt="IntelliJ" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/intellij/intellij-original.svg" width="50" height="50"/> <img alt="Spring" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/spring/spring-original-wordmark.svg" width="50" height="50"/> <img alt="MySQL" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original-wordmark.svg"  width="50" height="50"/> <img alt="Heroku" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/heroku/heroku-plain-wordmark.svg"  width="50" height="50"/>
 
 - ``Java 8``
 - ``InteliJ IDEA``
@@ -41,8 +41,8 @@ Projeto de uma API para controle de orçamento familiar. A API deve permitir que
 	- ``Testes de integração na camada de serviço``
 	- ``Testes e2e automatizados para a API. Cada funcionalidade está descrita nos arquivos de feature do Gherkin, que sabe interpretar a linguagem natural, e o Cucumber automatiza todos os critérios de aceite``
 
-## 📁 Acesso ao projeto
-Você pode acessar os arquivos do projeto clicando [aqui](https://github.com/gbarcelos/financas-api/tree/main/src/main/java/br/com/oak/financas/api).
+## :hammer_and_wrench: Deploy
+O deploy da aplicação no heroku, podendo ser acessada por esse [link](https://oak-financas-api.herokuapp.com).
 
 ## 📁 Acesso ao projeto de testes e2e
 Você pode acessar os arquivos do projeto de teste e2e clicando [aqui](https://github.com/gbarcelos/financas-api-e2e).
