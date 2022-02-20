@@ -2,11 +2,11 @@ package br.com.oak.financas.api.service.mapper;
 
 import br.com.oak.financas.api.entity.Categoria;
 import br.com.oak.financas.api.entity.Lancamento;
+import br.com.oak.financas.api.model.TipoLancamento;
 import br.com.oak.financas.api.model.input.DespesaInput;
 import br.com.oak.financas.api.repository.CategoriaRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
@@ -21,7 +21,6 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
-@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class DespesaMapperTest {
 
   @Mock private CategoriaRepository categoriaRepository;
@@ -49,6 +48,7 @@ public class DespesaMapperTest {
 
     Lancamento result = despesaMapper.map(source);
 
+    assertEquals(TipoLancamento.DESPESA, result.getTipo());
     assertEquals(source.getDescricao(), result.getDescricao());
     assertEquals(source.getData(), result.getData());
     assertEquals(source.getValor(), result.getValor());
