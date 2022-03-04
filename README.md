@@ -38,7 +38,7 @@ Projeto de uma API para controle de orçamento familiar. A API deve permitir que
 	- ``UUID para identificar recursos sensíveis``
 - ``Testes``
 	- ``Testes de unidade``
-	- ``Testes de integração na camada de serviço``
+	- ``Testes de integração``
 	- ``Testes e2e automatizados para a API. Cada funcionalidade está descrita nos arquivos de feature do Gherkin, que sabe interpretar a linguagem natural, e o Cucumber automatiza todos os critérios de aceite``
 
 ## :hammer_and_wrench: Deploy
