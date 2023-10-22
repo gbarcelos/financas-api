@@ -6,7 +6,7 @@ Projeto de uma API para controle de orçamento familiar. A API deve permitir que
 | -------------  | --- |
 | :sparkles: Nome        | **financas-api**
 | :label: Tecnologias | Java, Spring Boot, Spring Data JPA, Spring Security OAuth, Maven
-| :rocket: URL         | https://oak-financas-api.herokuapp.com
+| :rocket: URL         | TBD
 | :fire: Desafio     | https://www.alura.com.br/challenges/back-end
 
 ![thumbnail-financas-api](https://user-images.githubusercontent.com/13111308/153711634-b84b17dd-4541-428c-be15-0987dc480097.png?text=capa+do+meu+projeto#vitrinedev)
